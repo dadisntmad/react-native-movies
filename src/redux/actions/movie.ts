@@ -15,3 +15,17 @@ export const fetchMovies = createAsyncThunk(
     }
   },
 );
+
+export const fetchSimilarMovies = createAsyncThunk(
+  'movie/fetchSimilarMovies',
+  async (movieId: number, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${API_TOKEN}&language=en-US&page=1`,
+      );
+      return response.data.results;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  },
+);

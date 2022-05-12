@@ -2,6 +2,7 @@ export type MovieSliceState = {
   isLoading: boolean;
   error: string;
   movies: Movies[];
+  similarMovies: Movies[];
 };
 
 export type Movies = {

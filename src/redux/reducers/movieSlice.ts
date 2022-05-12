@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Movies, MovieSliceState } from '../../types/movie';
-import { fetchMovies } from '../actions/movie';
+import { fetchMovies, fetchSimilarMovies } from '../actions/movie';
 
 const initialState: MovieSliceState = {
   isLoading: false,
   error: '',
   movies: [],
+  similarMovies: [],
 };
 
 const movieSlice = createSlice({
@@ -22,6 +23,18 @@ const movieSlice = createSlice({
       state.isLoading = true;
     },
     [fetchMovies.rejected.type]: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    [fetchSimilarMovies.fulfilled.type]: (state, action: PayloadAction<Movies[]>) => {
+      state.isLoading = false;
+      state.error = '';
+      state.similarMovies = [...state.similarMovies, ...action.payload];
+    },
+    [fetchSimilarMovies.pending.type]: (state) => {
+      state.isLoading = true;
+    },
+    [fetchSimilarMovies.rejected.type]: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
       state.error = action.payload;
     },
