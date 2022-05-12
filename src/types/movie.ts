@@ -3,6 +3,8 @@ export type MovieSliceState = {
   error: string;
   movies: Movies[];
   similarMovies: Movies[];
+  searchTerm: string;
+  searchMovies: Movies[];
 };
 
 export type Movies = {

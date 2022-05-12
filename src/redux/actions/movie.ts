@@ -29,3 +29,17 @@ export const fetchSimilarMovies = createAsyncThunk(
     }
   },
 );
+
+export const fetchSearchMovie = createAsyncThunk(
+  'movie/fetchSearchMovie',
+  async (query: string, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/search/movie?query=${query}&page=1&api_key=${API_TOKEN}`,
+      );
+      return response.data.results;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  },
+);

@@ -1,18 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Movies, MovieSliceState } from '../../types/movie';
-import { fetchMovies, fetchSimilarMovies } from '../actions/movie';
+import { fetchMovies, fetchSearchMovie, fetchSimilarMovies } from '../actions/movie';
 
 const initialState: MovieSliceState = {
   isLoading: false,
   error: '',
   movies: [],
   similarMovies: [],
+  searchTerm: '',
+  searchMovies: [],
 };
 
 const movieSlice = createSlice({
   name: 'movie',
   initialState,
-  reducers: {},
+  reducers: {
+    setSearchTerm: (state, action: PayloadAction<string>) => {
+      state.searchTerm = action.payload;
+    },
+  },
   extraReducers: {
     [fetchMovies.fulfilled.type]: (state, action: PayloadAction<Movies[]>) => {
       state.isLoading = false;
@@ -38,9 +44,21 @@ const movieSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+    [fetchSearchMovie.fulfilled.type]: (state, action: PayloadAction<Movies[]>) => {
+      state.isLoading = false;
+      state.error = '';
+      state.searchMovies = action.payload;
+    },
+    [fetchSearchMovie.pending.type]: (state) => {
+      state.isLoading = true;
+    },
+    [fetchSearchMovie.rejected.type]: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
   },
 });
 
-export const {} = movieSlice.actions;
+export const { setSearchTerm } = movieSlice.actions;
 
 export default movieSlice.reducer;
