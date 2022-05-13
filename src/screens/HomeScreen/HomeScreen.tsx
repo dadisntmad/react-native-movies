@@ -21,7 +21,7 @@ export const HomeScreen = () => {
     <View style={styles.container}>
       <FlatList
         data={movies}
-        keyExtractor={({ id }) => id}
+        keyExtractor={({ id }) => id.toString()}
         renderItem={({ item }) => <Movie movie={item} />}
         numColumns={2}
         showsVerticalScrollIndicator={false}

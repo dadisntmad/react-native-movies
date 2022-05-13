@@ -5,6 +5,7 @@ export type MovieSliceState = {
   similarMovies: Movies[];
   searchTerm: string;
   searchMovies: Movies[];
+  upcomingMovies: Movies[];
 };
 
 export type Movies = {

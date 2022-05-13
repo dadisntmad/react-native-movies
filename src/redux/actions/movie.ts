@@ -43,3 +43,17 @@ export const fetchSearchMovie = createAsyncThunk(
     }
   },
 );
+
+export const fetchUpcomingMovies = createAsyncThunk(
+  'movie/fetchUpcomingMovies',
+  async (page: number = 1, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_TOKEN}&language=en-US&page=${page}`,
+      );
+      return response.data.results;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  },
+);

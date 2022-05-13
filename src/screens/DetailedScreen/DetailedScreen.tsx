@@ -39,7 +39,7 @@ export const DetailedScreen = () => {
       <View style={styles.similarMovies}>
         <FlatList
           data={similarMovies}
-          keyExtractor={({ id }) => id}
+          keyExtractor={({ id }) => id.toString()}
           renderItem={({ item }) => <Movie movie={item} />}
           numColumns={2}
           showsVerticalScrollIndicator={false}
